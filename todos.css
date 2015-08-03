@@ -1,0 +1,16 @@
+[name=todoItem]{
+    border:none;
+    font-family: "Times New Roman";
+    font-size: 100%;
+    padding:0.15em;
+}  
+[name=todoItem]:hover{  
+    background-color: #f9f9f9;
+    cursor:pointer;
+}
+[name=todoItem]:focus{
+    background-color: #f9f9f9;
+    cursor:default;
+    outline:none;
+}
+
