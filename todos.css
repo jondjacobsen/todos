@@ -14,3 +14,17 @@
     outline:none;
 }
 
+.checked{
+	background-color: f0f0f0;
+	color: #666;
+}
+
+.checked [name=todoItem]{
+	text-decoration: line-through;
+}
+
+.checked [name=todoItem],
+.checked [name=todoItem]:hover,
+.checked [name=todoItem]:focus{
+	background-color: #f9f9f9;
+}

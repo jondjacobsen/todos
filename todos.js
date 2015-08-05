@@ -50,6 +50,24 @@ if (Meteor.isClient) {
     }
 
   });
+  Template.todoItem.helpers({
+    'checked': function(){
+        var isCompleted = this.completed;
+        if(isCompleted){
+          return "checked";
+        } else {
+          return "";
+        }
+      }
+  });
+  Template.todosCount.helpers({
+    'totalTodos': function(){
+      return Todos.find().count();
+    },
+    'completedTodos': function(){
+      return Todos.find({ completed: true }).count();
+    }
+  });
 }
 
 if (Meteor.isServer) {
