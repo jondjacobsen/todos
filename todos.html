@@ -1,11 +1,14 @@
-<head>
-  <title>todos</title>
-</head>
+<template name="main">
+	<h1>Todos</h1>
+	{{> yield}}
+	<hr />
+	<p>Copyright &copy; Todos, 2014-2015.</p>
+</template>
 
-<body>
+<template name="home">
+	<p>Welcome to the Todos Application.</p>
 	{{> todos}}
-</body>
-
+</template>
 <template name="todos">
 	{{> addTodo}}
 	<ul>
@@ -32,5 +35,11 @@
 	{{#if totalTodos}}
 		<p>You have completed {{completedTodos}} out of {{totalTodos}} tasks.</p>
 	{{/if}}
+</template>
+<template name="register">
+	<h2>Register</h2>
+</template>
+<template name="login">
+	<h2>Login</h2>
 </template>
 

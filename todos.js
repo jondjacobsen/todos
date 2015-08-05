@@ -73,3 +73,15 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
 	
 }
+
+//Iron Router Routing instructions
+Router.route('/register');
+Router.route('/login');
+Router.route('/', {
+  template: 'home'
+});
+
+//Layout of Templates
+Router.configure({
+  layoutTemplate: 'main'
+});
