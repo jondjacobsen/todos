@@ -1,3 +1,3 @@
-# Todos Application 
-###Your Second Meteor Application
+# Todos Application ###Your Second Meteor Application
+
 *****
