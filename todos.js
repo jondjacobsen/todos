@@ -1,5 +1,5 @@
 Todos = new Meteor.Collection('todos');
-
+Lists = new Meteor.Collection('lists');
 if (Meteor.isClient) {
   Template.todos.helpers({
     'todo': function(){
@@ -66,6 +66,16 @@ if (Meteor.isClient) {
     },
     'completedTodos': function(){
       return Todos.find({ completed: true }).count();
+    }
+  });
+  Template.addlist.events({
+    'submit form': function(event){
+    event.preventDefault();
+    var listName = $('[name=listName]').val();
+     Lists.insert({
+       name: listName
+     });
+      $('[name=listName]').val('');  
     }
   });
 }
