@@ -1,5 +1,6 @@
 Todos = new Meteor.Collection('todos');
 Lists = new Meteor.Collection('lists');
+
 if (Meteor.isClient) {
   Template.todos.helpers({
     'todo': function(){
@@ -68,14 +69,21 @@ if (Meteor.isClient) {
       return Todos.find({ completed: true }).count();
     }
   });
-  Template.addlist.events({
+  
+  Template.addList.events({
     'submit form': function(event){
-    event.preventDefault();
-    var listName = $('[name=listName]').val();
-     Lists.insert({
-       name: listName
-     });
-      $('[name=listName]').val('');  
+      event.preventDefault();
+      var listName = $('[name=listName]').val();
+      Lists.insert({
+          name: listName
+      });
+      $('[name=listName]').val('');
+    }
+});
+
+  Template.lists.helpers({
+    'list': function(){
+      return Lists.find({}, {sort: {name: 1}});
     }
   });
 }
@@ -88,7 +96,13 @@ if (Meteor.isServer) {
 Router.route('/register');
 Router.route('/login');
 Router.route('/', {
+  name: 'home',
   template: 'home'
+});
+Router.route('/list', {
+  data: function(){
+    console.log("This is a list page.");
+  }
 });
 
 //Layout of Templates

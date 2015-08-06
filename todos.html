@@ -1,14 +1,26 @@
 <template name="main">
 	<h1>Todos</h1>
+	{{> navigation}}
+	{{> lists}}
 	{{> yield}}
 	<hr />
 	<p>Copyright &copy; Todos, 2014-2015.</p>
 </template>
 
+<!--NAV -->
+<template name="navigation">
+	<ul>
+		<li><a href="{{pathFor route='home'}}">Home</a></li>
+		<li><a href="{{pathFor route='register'}}">Register</a></li>
+		<li><a href="{{pathFor route='login'}}">Login</a></li>	
+	</ul>
+</template>	
+
 <template name="home">
 	<p>Welcome to the Todos Application.</p>
 	{{> todos}}
 </template>
+
 <template name="todos">
 	{{> addTodo}}
 	<ul>
@@ -47,5 +59,14 @@
       <input type="text" placeholder="List name here..." name="listName">
   </form>  
 </template>
-
+<template name="lists">
+	<h2>Lists</h2>
+	{{> addList}}
+	<ul>
+		{{#each list}}
+			<li><a href="/list/{{_id}}">{{name}}</a></li>
+		{{/each}}
+	</ul>	
+</template>
+	
 
