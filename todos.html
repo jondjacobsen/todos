@@ -18,7 +18,6 @@
 
 <template name="home">
 	<p>Welcome to the Todos Application.</p>
-	{{> todos}}
 </template>
 
 <template name="todos">
@@ -64,9 +63,13 @@
 	{{> addList}}
 	<ul>
 		{{#each list}}
-			<li><a href="/list/{{_id}}">{{name}}</a></li>
+			<li><a href="{{pathFor route='listPage'}}">{{name}}</a></li>
 		{{/each}}
 	</ul>	
+</template>
+<template name="listPage">
+	<h2>Tasks: {{name}}</h2>
+	{{> todos}}
 </template>
 	
 

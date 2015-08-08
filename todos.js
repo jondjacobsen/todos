@@ -4,17 +4,20 @@ Lists = new Meteor.Collection('lists');
 if (Meteor.isClient) {
   Template.todos.helpers({
     'todo': function(){
-      return Todos.find({}, {sort: {createdAt: -1}});
+      var currentList = this._id;
+      return Todos.find({ listId: currentList }, {sort: {createdAt: -1}});
     }
   });
   Template.addTodo.events({
     'submit form': function(event){
       event.preventDefault();
       var todoName = $('[name="todoName"]').val();
+      var currentList = this._id;
       Todos.insert({
         name: todoName,
         completed: false,
-        createdAt: new Date()
+        createdAt: new Date(), 
+        listId: currentList
       });
       $('[name="todoName"]').val('');
     }
@@ -63,10 +66,12 @@ if (Meteor.isClient) {
   });
   Template.todosCount.helpers({
     'totalTodos': function(){
-      return Todos.find().count();
+      var currentList = this._id;
+      return Todos.find({ listId: currentList }).count();
     },
     'completedTodos': function(){
-      return Todos.find({ completed: true }).count();
+      var currentList = this._id;      
+      return Todos.find({ listId: currentList, completed: true }).count();
     }
   });
   
@@ -99,10 +104,13 @@ Router.route('/', {
   name: 'home',
   template: 'home'
 });
-Router.route('/list', {
-  data: function(){
-    console.log("This is a list page.");
-  }
+Router.route('/list/:_id', {
+    name: 'listPage',
+    template: 'listPage',
+    data: function(){
+        var currentList = this.params._id;
+        return Lists.findOne({ _id: currentList });
+    }
 });
 
 //Layout of Templates
