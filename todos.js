@@ -93,6 +93,39 @@ if (Meteor.isClient) {
       return Lists.find({}, {sort: {name: 1}});
     }
   });
+  //Registration form code
+  Template.register.events({
+    'submit form': function(event){
+      event.preventDefault();
+      var email = $('[name=email]').val();
+      var password = $('[name=password').val();
+      Accounts.createUser({
+        email: email,
+        password: password
+      });
+      Router.go('home');
+    }
+  });
+  
+  /*Logout of App */
+
+  Template.navigation.events({
+    'click .logout': function(event){
+      event.preventDefault();
+      Meteor.logout();
+      Router.go('login');
+    }
+  });
+  /* Login Form Template */
+  Template.login.events({
+    'submit form': function(event){
+      event.preventDefault();
+      var email = $('[name=email]').val();
+      var password = $('[name=password]').val();
+      Meteor.loginWithPassword(email, password);
+    }
+  });
+
 }
 
 if (Meteor.isServer) {

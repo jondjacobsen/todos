@@ -11,8 +11,12 @@
 <template name="navigation">
 	<ul>
 		<li><a href="{{pathFor route='home'}}">Home</a></li>
-		<li><a href="{{pathFor route='register'}}">Register</a></li>
-		<li><a href="{{pathFor route='login'}}">Login</a></li>	
+		{{#if currentUser}}
+			<li><a href="#" class="logout">Logout</a></li>
+		{{else}}	
+			<li><a href="{{pathFor route='register'}}">Register</a></li>
+			<li><a href="{{pathFor route='login'}}">Login</a></li>
+		{{/if}}	
 	</ul>
 </template>	
 
@@ -47,11 +51,16 @@
 		<p>You have completed {{completedTodos}} out of {{totalTodos}} tasks.</p>
 	{{/if}}
 </template>
-<template name="register">
-	<h2>Register</h2>
-</template>
+
+<!--Login Template-->
 <template name="login">
 	<h2>Login</h2>
+	<form class="login">
+		<p>Email: <input type="email" name="email"></p>
+		<p>Password: <input type="password" name="password"></p>
+		<p><input type="submit" value="login"></p>
+		
+	</form>
 </template>
 <template name="addList">
   <form>Create a List:
@@ -71,6 +80,7 @@
 	<h2>Tasks: {{name}}</h2>
 	{{> todos}}
 </template>
+
 <!--Registration Form for Login -->
 <template name ="register">
 	<h2>Register</h2>
