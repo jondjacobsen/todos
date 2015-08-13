@@ -6,4 +6,9 @@
 
 | Days Coding it  | Start Month | End Month |
 |-----------------|-------------|-----------|
-| 4 Days          | July 2015   | Not Done  |
+| 16 Days         | July 28 2015| Not Done  |
+
+
+##After Reading into the User Login
+
+>**IDEA** is to create two levels instead of just the categories level to take in Orders and Royalties.
