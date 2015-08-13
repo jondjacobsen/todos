@@ -12,3 +12,7 @@
 ##After Reading into the User Login
 
 >**IDEA** is to create two levels instead of just the categories level to take in Orders and Royalties.
+
+>**Equivelants**Maybe
+>List = Book
+>Todo = Order

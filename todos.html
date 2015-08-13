@@ -1,7 +1,9 @@
 <template name="main">
 	<h1>Todos</h1>
 	{{> navigation}}
-	{{> lists}}
+	{{#if currentUser}}
+		{{> lists}}
+	{{/if}}	
 	{{> yield}}
 	<hr />
 	<p>Copyright &copy; Todos, 2014-2015.</p>
