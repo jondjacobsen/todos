@@ -16,3 +16,5 @@
 >**Equivelants** Maybe
 >List = Book
 >Todo = Order
+
+>**Hooks** "Iron Router" has some excellent tricks called hooks to keep or push users to the correct pathways for what would make their experience best. 
