@@ -19,7 +19,7 @@ if (Meteor.isClient) {
         name: todoName,
         completed: false,
         createdAt: new Date(),
-        createdBy: currentUser, 
+        createdBy: currentUser,
         listId: currentList
       });
       $('[name="todoName"]').val('');
@@ -73,11 +73,11 @@ if (Meteor.isClient) {
       return Todos.find({ listId: currentList }).count();
     },
     'completedTodos': function(){
-      var currentList = this._id;      
+      var currentList = this._id;
       return Todos.find({ listId: currentList, completed: true }).count();
     }
   });
-  
+
   Template.addList.events({
     'submit form': function(event){
         event.preventDefault();
@@ -85,7 +85,7 @@ if (Meteor.isClient) {
         var currentUser = Meteor.userId();
         Lists.insert({
           name: listName,
-          createdBy: currentUser  
+          createdBy: currentUser
         }, function(error, results){
             Router.go('listPage', { _id: results });
         });
@@ -117,7 +117,7 @@ if (Meteor.isClient) {
       });
   }
 });
-  
+
   /*Logout of App */
 
   Template.navigation.events({
@@ -135,9 +135,12 @@ if (Meteor.isClient) {
       var password = $('[name=password]').val();
       Meteor.loginWithPassword(email, password, function(error){
         if(error){
-          console.log(error.reason);
+          console.log(error.reason); // Output error when the login fails
         } else {
-          Router.go("home");
+          var currentRoute = Router.current().route.getName();
+          if(currentRoute == "login"){
+            Router.go("home"); // Redirext user when Login succeeds
+          } //No redirectin if they sign in from list page...
         }
       });
     }
@@ -145,10 +148,18 @@ if (Meteor.isClient) {
 }
 
 if (Meteor.isServer) {
-	
+
 }
 
 //Iron Router Routing instructions
+/* Router Hooks
+- onRun - (Requires "this.next" to run properly)
+- onRerun
+- onBeforeAction
+- onAfterAction
+- onStop
+*/
+
 Router.route('/register');
 Router.route('/login');
 Router.route('/', {
@@ -160,7 +171,15 @@ Router.route('/list/:_id', {
     template: 'listPage',
     data: function(){
         var currentList = this.params._id;
-        return Lists.findOne({ _id: currentList });
+        var currentUser = Meteor.userId();
+        return Lists.findOne({ _id: currentList; createdBy: currentUser });
+    },
+    onBeforeAction: function(){
+      var currentUser = Meteor.userId();
+      if (currentUser){
+        this.next();
+    } else {
+        this.render("login");
     }
 });
 
