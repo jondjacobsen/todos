@@ -9,7 +9,7 @@
 | 18 Days         | July 28 2015| Not Done  |
 
 
-##After Reading into the User Login
+## After Reading the tutorial through: **VALIDATION**
 
 >**IDEA** is to create two levels instead of just the categories level to take in Orders and Royalties.
 

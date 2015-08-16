@@ -131,7 +131,7 @@ if (Meteor.isClient) {
   Template.login.events({
     'submit form': function(event){
       event.preventDefault();
-      var email = $('[name=email]').val();
+      /* var email = $('[name=email]').val();
       var password = $('[name=password]').val();
       Meteor.loginWithPassword(email, password, function(error){
         if(error){
@@ -143,8 +143,21 @@ if (Meteor.isClient) {
           } //No redirectin if they sign in from list page...
         }
       });
+      */
     }
   });
+  /* VALIDATION Demonstration */
+
+  Template.login.onCreated(function(){
+    console.log("The 'login' template was just created.");
+  });
+  Template.login.onRendered(function(){
+    $('.login').validate();
+  });
+  Template.login.onDestroyed(function(){
+    console.log("The 'login' template was just destroyed.");
+  });
+
 }
 
 if (Meteor.isServer) {
@@ -172,14 +185,29 @@ Router.route('/list/:_id', {
     data: function(){
         var currentList = this.params._id;
         var currentUser = Meteor.userId();
-        return Lists.findOne({ _id: currentList; createdBy: currentUser });
+        return Lists.findOne({ _id: currentList, createdBy: currentUser });
+    },
+    onRun: function(){
+        console.log("You triggered 'onRun' for 'listPage' route.");
+        this.next();
+    },
+    onRerun: function(){
+        console.log("You triggered 'onRerun' for 'listPage' route.");
     },
     onBeforeAction: function(){
-      var currentUser = Meteor.userId();
-      if (currentUser){
-        this.next();
-    } else {
-        this.render("login");
+        console.log("You triggered 'onBeforeAction' for 'listPage' route.");
+        var currentUser = Meteor.userId();
+        if(currentUser){
+            this.next();
+        } else {
+            this.render("login");
+        }
+    },
+    onAfterAction: function(){
+        console.log("You triggered 'onAfterAction' for 'listPage' route.");
+    },
+    onStop: function(){
+        console.log("You triggered 'onStop' for 'listPage' route.");
     }
 });
 

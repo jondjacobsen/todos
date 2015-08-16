@@ -3,8 +3,8 @@
     font-family: "Times New Roman";
     font-size: 100%;
     padding:0.15em;
-}  
-[name=todoItem]:hover{  
+}
+[name=todoItem]:hover{
     background-color: #f9f9f9;
     cursor:pointer;
 }
@@ -27,4 +27,8 @@
 .checked [name=todoItem]:hover,
 .checked [name=todoItem]:focus{
 	background-color: #f9f9f9;
+}
+/* Validation */
+input.error{
+  background-color:rgb(255, 231, 231);
 }
