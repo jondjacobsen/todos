@@ -3,7 +3,7 @@
 	{{> navigation}}
 	{{#if currentUser}}
 		{{> lists}}
-	{{/if}}	
+	{{/if}}
 	{{> yield}}
 	<hr />
 	<p>Copyright &copy; Todos, 2014-2015.</p>
@@ -15,12 +15,12 @@
 		<li><a href="{{pathFor route='home'}}">Home</a></li>
 		{{#if currentUser}}
 			<li><a href="#" class="logout">Logout</a></li>
-		{{else}}	
+		{{else}}
 			<li><a href="{{pathFor route='register'}}">Register</a></li>
 			<li><a href="{{pathFor route='login'}}">Login</a></li>
-		{{/if}}	
+		{{/if}}
 	</ul>
-</template>	
+</template>
 
 <template name="home">
 	<p>Welcome to the Todos Application.</p>
@@ -58,16 +58,15 @@
 <template name="login">
 	<h2>Login</h2>
 	<form class="login">
-		<p>Email: <input type="email" name="email"></p>
-		<p>Password: <input type="password" name="password"></p>
+		<p>Email: <input type="email" name="email" required></p>
+		<p>Password: <input type="password" name="password" required></p>
 		<p><input type="submit" value="login"></p>
-		
 	</form>
 </template>
 <template name="addList">
   <form>Create a List:
       <input type="text" placeholder="List name here..." name="listName">
-  </form>  
+  </form>
 </template>
 <template name="lists">
 	<h2>Lists</h2>
@@ -76,7 +75,7 @@
 		{{#each list}}
 			<li><a href="{{pathFor route='listPage'}}">{{name}}</a></li>
 		{{/each}}
-	</ul>	
+	</ul>
 </template>
 <template name="listPage">
 	<h2>Tasks: {{name}}</h2>
@@ -90,6 +89,5 @@
 		<p>Email: <input type="email" name="email"></p>
 		<p>Password: <input type="password" name="password"></p>
 		<p><input type="submit" value="Register"></p>
-	</form>	
-</template>	
-
+	</form>
+</template>
