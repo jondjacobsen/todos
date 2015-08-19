@@ -18,3 +18,8 @@
 >Todo = Order
 
 >**Hooks** "Iron Router" has some excellent tricks called hooks to keep or push users to the correct pathways for what would make their experience best.
+
+>**Validation** I will need to use a lot of this when adding in a book into our system...
+- ISBN
+- Price
+- etc.
