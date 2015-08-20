@@ -104,18 +104,7 @@ if (Meteor.isClient) {
     'submit form': function(event){
       /*
       event.preventDefault();
-      var email = $('[name=email]').val();
-      var password = $('[name=password').val();
-      Accounts.createUser({
-        email: email,
-        password: password
-      }, function(error){
-        if(error){
-          console.log(error.reason);
-        }else {
-          Router.go("home");
-        }
-      });
+
       */
   }
 });
@@ -133,18 +122,7 @@ if (Meteor.isClient) {
   Template.login.events({
     'submit form': function(event){
       event.preventDefault();
-      /* var email = $('[name=email]').val();
-      var password = $('[name=password]').val();
-      Meteor.loginWithPassword(email, password, function(error){
-        if(error){
-          console.log(error.reason); // Output error when the login fails
-        } else {
-          var currentRoute = Router.current().route.getName();
-          if(currentRoute == "login"){
-            Router.go("home"); // Redirext user when Login succeeds
-          } //No redirectin if they sign in from list page...
-        }
-      });
+      /*
       */
       }
     });
@@ -174,8 +152,23 @@ $.validator.setDefaults({
 });
 
 
-      Template.register.onRendered(function(){
-    $('.register').validate();
+    Template.register.onRendered(function(){
+      $('.register').validate({
+        submitHandler: function(event){
+          var email = $('[name=email]').val();
+          var password = $('[name=password').val();
+          Accounts.createUser({
+            email: email,
+            password: password
+          }, function(error){
+            if(error){
+              console.log(error.reason);
+            }else {
+              Router.go("home");
+            }
+          });
+        }
+      });
     });
 
   /* VALIDATION Demonstration */
@@ -184,7 +177,22 @@ $.validator.setDefaults({
     console.log("The 'login' template was just created.");
   });
   Template.login.onRendered(function(){
-    $('.login').validate();
+    $('.login').validate({
+      submitHandler: function(event){
+        var email = $('[name=email]').val();
+        var password = $('[name=password]').val();
+        Meteor.loginWithPassword(email, password, function(error){
+          if(error){
+            console.log(error.reason); // Output error when the login fails
+          } else {
+            var currentRoute = Router.current().route.getName();
+            if(currentRoute == "login"){
+              Router.go("home"); // Redirext user when Login succeeds
+            } //No redirectin if they sign in from list page...
+          }
+        });
+      }
+    });
   });
   Template.login.onDestroyed(function(){
     console.log("The 'login' template was just destroyed.");
