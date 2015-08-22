@@ -153,7 +153,7 @@ $.validator.setDefaults({
 
 
     Template.register.onRendered(function(){
-      $('.register').validate({
+      var validator = $('.register').validate({
         submitHandler: function(event){
           var email = $('[name=email]').val();
           var password = $('[name=password').val();
@@ -162,6 +162,11 @@ $.validator.setDefaults({
             password: password
           }, function(error){
             if(error){
+              if(error.reason == "Email already exists."){
+                validator.showErrors({
+                  email: "That email already belongs to a registered user."
+                });
+              }
               console.log(error.reason);
             }else {
               Router.go("home");
@@ -177,23 +182,33 @@ $.validator.setDefaults({
     console.log("The 'login' template was just created.");
   });
   Template.login.onRendered(function(){
-    $('.login').validate({
-      submitHandler: function(event){
-        var email = $('[name=email]').val();
-        var password = $('[name=password]').val();
-        Meteor.loginWithPassword(email, password, function(error){
-          if(error){
-            console.log(error.reason); // Output error when the login fails
-          } else {
-            var currentRoute = Router.current().route.getName();
-            if(currentRoute == "login"){
-              Router.go("home"); // Redirext user when Login succeeds
-            } //No redirectin if they sign in from list page...
-          }
-        });
-      }
+    var validator = $('.login').validate({
+        submitHandler: function(event){
+            var email = $('[name=email]').val();
+            var password = $('[name=password]').val();
+            Meteor.loginWithPassword(email, password, function(error){
+              if(error){
+                console.log(error.reason);
+                if(error.reason == "User not found"){
+                    validator.showErrors({
+                        email: "That email doesn't belong to a registered user."
+                    });
+                }
+                if(error.reason == "Incorrect password"){
+                    validator.showErrors({
+                        password: "You entered an incorrect password."
+                    });
+                  }
+                } else {
+                    var currentRoute = Router.current().route.getName();
+                    if(currentRoute == "login"){
+                        Router.go("home");
+                    }
+                }
+            });
+        }
     });
-  });
+});
   Template.login.onDestroyed(function(){
     console.log("The 'login' template was just destroyed.");
   });

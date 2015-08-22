@@ -12,14 +12,19 @@
 ## After Reading the tutorial through: **VALIDATION**
 
 >**IDEA** is to create two levels instead of just the categories level to take in Orders and Royalties.
+______
 
 >**Equivelants** Maybe
 >List = Book
 >Todo = Order
+______
 
 >**Hooks** "Iron Router" has some excellent tricks called hooks to keep or push users to the correct pathways for what would make their experience best.
+______
 
 >**Validation** I will need to use a lot of this when adding in a book into our system...
 - ISBN
 - Price
 - etc.
+
+______
