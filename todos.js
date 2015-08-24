@@ -102,6 +102,11 @@ if (Meteor.isClient) {
       return Lists.find({ createdBy: currentUser }, {sort: {name: 1}});
     }
   });
+  //Subscribe in the Template
+  Template.lists.onCreated(function () {
+    this.subscribe('lists');
+  });
+
   //Registration form code
   Template.register.events({
     'submit form': function(event){
@@ -224,9 +229,9 @@ if (Meteor.isServer) {
     return Lists.find({ createdBy: currentUser });
   });
 
-  Meteor.publish('todos', function(){
+  Meteor.publish('todos', function(currentList){
     var currentUser = this.userId;
-    return Todos.find({ createdBy: currentUser })
+    return Todos.find({ createdBy: currentUser, listId: currentList })
   });
 
 }
@@ -244,7 +249,10 @@ Router.route('/register');
 Router.route('/login');
 Router.route('/', {
   name: 'home',
-  template: 'home'
+  template: 'home'/*,
+  waitOn: function(){
+    return Meteor.subscribe('lists');
+  }*/
 });
 Router.route('/list/:_id', {
     name: 'listPage',
@@ -263,12 +271,14 @@ Router.route('/list/:_id', {
             this.render("login");
         }
     },
-    subscriptions: function(){
-      return Meteor.subscribe('todos');
+    waitOn: function(){
+      var currentList = this.params._id;
+      return Meteor.subscribe('todos', currentList);
     }
 });
 
 //Layout of Templates
 Router.configure({
-  layoutTemplate: 'main'
+  layoutTemplate: 'main',
+  loadingTemplate: 'loading'
 });

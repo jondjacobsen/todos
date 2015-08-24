@@ -1,10 +1,10 @@
 <template name="main">
 	<h1>Todos</h1>
 	{{> navigation}}
-	{{#if currentUser}}
-		{{> lists}}
-	{{/if}}
-	{{> yield}}
+		{{#if currentUser}}
+			{{> lists}}
+		{{/if}}
+		{{> yield}}
 	<hr />
 	<p>Copyright &copy; Todos, 2014-2015.</p>
 </template>
@@ -69,13 +69,17 @@
   </form>
 </template>
 <template name="lists">
-	<h2>Lists</h2>
-	{{> addList}}
-	<ul>
-		{{#each list}}
-			<li><a href="{{pathFor route='listPage'}}">{{name}}</a></li>
-		{{/each}}
-	</ul>
+		<h2>Lists</h2>
+		{{> addList}}
+		<ul>
+			{{#if Template.subscriptionsReady}}
+				{{#each list}}
+					<li><a href="{{pathFor route='listPage'}}">{{name}}</a></li>
+				{{/each}}
+			{{else}}
+					<li>Loading...</li>
+			{{/if}}
+		</ul>
 </template>
 <template name="listPage">
 	<h2>Tasks: {{name}}</h2>
@@ -90,4 +94,9 @@
 		<p>Password: <input type="password" name="password" required></p>
 		<p><input type="submit" value="Register"></p>
 	</form>
+</template>
+
+<!--LOAD TEMPLATE-->
+<template name="loading">
+		<p>Loading...</p>
 </template>
