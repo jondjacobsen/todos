@@ -85,14 +85,7 @@ if (Meteor.isClient) {
     'submit form': function(event){
         event.preventDefault();
         var listName = $('[name=listName]').val();
-        var currentUser = Meteor.userId();
-        Lists.insert({
-          name: listName,
-          createdBy: currentUser
-        }, function(error, results){
-            Router.go('listPage', { _id: results });
-        });
-        $('[name=listName]').val('');
+        Meteor.call('createNewList', listName);
     }
 });
 
@@ -232,6 +225,17 @@ if (Meteor.isServer) {
   Meteor.publish('todos', function(currentList){
     var currentUser = this.userId;
     return Todos.find({ createdBy: currentUser, listId: currentList })
+  });
+
+  Meteor.methods({
+    'createNewList': function(listName){
+      var currentUser = Meteor.userId();
+      var data = {
+        name: listName,
+        createdBy: currentUser
+      }
+      Lists.insert(data);
+    }
   });
 
 }
