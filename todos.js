@@ -230,9 +230,16 @@ if (Meteor.isServer) {
   Meteor.methods({
     'createNewList': function(listName){
       var currentUser = Meteor.userId();
+      check(listName, String);
+      if(listName == ""){
+        listName = "Untitled";
+      }
       var data = {
         name: listName,
         createdBy: currentUser
+      }
+      if(!currentUser){
+        throw new Meteor.Error("not logged-in", "You're not logged-in.");
       }
       Lists.insert(data);
     }
